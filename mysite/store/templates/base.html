@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    {% block title %}<title>Laptop Store</title>{% endblock %}
+
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <!-- Font Awesome JS -->
+    <script src="https://kit.fontawesome.com/682fa468d1.js" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css" rel="stylesheet" />
+    <!-- slick slider css -->
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <!-- Our Custom CSS -->
+    {% load static %}
+    
+    <link rel="stylesheet" href="{% static "css/detail.css" %}">
+    <link rel="stylesheet" href="{% static "css/style.css" %}">
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <!-- Sidebar  -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h3>Laptop Store</h3>
+                <strong><i class="fa-solid fa-shop" style="display:inline"></i></strong>
+            </div>
+
+            <ul class="list-unstyled components">
+                <li class="active">
+                    <a href="#lapSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="fas fa-laptop"></i>
+                        Laptop
+                    </a>
+                    <ul class="collapse list-unstyled" id="lapSubmenu">
+                        <li>
+                            <a href="{% url 'lapList' %}">View</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'add_laptop' %}">Add new laptop</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="fa-solid fa-person"></i>
+                        Users
+                    </a>
+                    <ul class="collapse list-unstyled" id="pageSubmenu">
+                        <li>
+                            <a href="{% url 'users' %}">View</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'user_add' %}">Add new User</a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li>
+                    <a href="#imageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="fa-solid fa-image"></i>
+                        Image
+                    </a>
+                    <ul class="collapse list-unstyled" id="imageSubmenu">
+                        <li>
+                            <a href="{% url 'view_images' %}">View</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'upload_image' %}">Add new Image</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="active">
+                    <a href="#brandSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="fa-solid fa-shop"></i>
+                        Brand
+                    </a>
+                    <ul class="collapse list-unstyled" id="brandSubmenu">
+                        <li>
+                            <a href="{% url 'brand_list' %}">View Brands</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'brand_add' %}">Add new brand</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="active">
+                    <a href="{% url 'logout_view' %}">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        Log out
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Page Content  -->
+        <div id="content">
+            <!-- nav bar -->
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+
+                    <button type="button" id="sidebarCollapse" class="btn btn-info">
+                        <i class="fa-solid fa-bars"></i>
+                        <span></span>
+                    </button>
+                    <!-- Search form -->
+                    <div class="container d-flex justify-content-center align-items-center form-sm active-cyan active-cyan-2">
+                        <i class="fas fa-search mr-2" aria-hidden="true"></i>
+                        <input class="form-control w-75" id="tableSearch" type="text" placeholder="Search laptop, customer, ...">
+                    </div>
+            </nav>
+            <!-- main content -->
+            {% block content %}
+            {% endblock %}
+            <!-- *! insert data here -->
+        </div>
+    </div>
+
+
+</body>
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <!-- MDB -->
+    <script
+    type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"
+    ></script>
+        <!-- slick slider js -->
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <!-- icon -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script src="https://kit.fontawesome.com/682fa468d1.js" crossorigin="anonymous"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    {% load static %}
+    <script src="{% static "js/script.js" %}"></script>
+</html>

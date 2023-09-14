@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  {% for laptop in laptops %}
+    <h2>{{ laptop.name }}</h2>
+    <div class="row">
+      {% for image in laptop.images.all %}
+        <div class="col-md-3 mb-3">
+          <div class="card">
+            <img src="{{ image.image.url }}" class="card-img-top" alt="{{ image.name }}">
+            <div class="card-body">
+              <p class="card-text">{{ image.description }}</p>
+              <a href="{% url 'edit_image' image.id %}" class="btn btn-primary">Edit</a>
+              <a href="{% url 'delete_image' image.id %}" class="btn btn-danger">Delete</a> 
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% empty %}
+    <p>No laptops available</p>
+  {% endfor %}
+{% endblock %}
+

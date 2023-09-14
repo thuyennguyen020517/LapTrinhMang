@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <p>Are you sure you want to delete "{{item}}"</p>
+  <form action= {% url 'delete_laptop' item.id %} method = "POST">
+    {% csrf_token %}
+    <a class = "btn btn-danger" href = "{% url 'lapList'%}">Cancel</a>
+    <input class = "btn btn-danger" type="submit" name = "confirm">
+    
+  </form>
+{% endblock %}

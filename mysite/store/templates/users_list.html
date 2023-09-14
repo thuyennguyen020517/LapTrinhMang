@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if usersList %}
+<table class="table table-bordered table-striped">      
+    <!-- columns name -->
+    <thead>
+        <tr>
+          <th>User ID</th>
+          <th>User name</th>
+          <th>Fist name</th>
+          <th>Last name</th>
+          <th>Is customer</th>
+          <th>Email name</th>
+          <th>
+             Actions
+          </th>
+        </tr>
+      </thead>
+      <tbody id="myTable">
+        {% for user in usersList %}
+        <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.first_name }}</td>
+            <td>{{ user.last_name }}</td>
+            <td>{{ user.is_customer }}</td>
+            <td>{{ user.email }}</td>
+           <td>
+                <button type="button" class="btn btn-primary" onclick="window.location.href='{% url 'user_detail' user.id %}'"><i class="far fa-eye"></i></button>
+                <button type="button" class="btn btn-success" onclick="window.location.href='{% url 'user_update' user.id %}'"><i class="fas fa-edit"></i></button>
+
+                <button type="button" class="btn btn-danger"  data-mdb-toggle="modal" data-mdb-target="#deleteModal{{user.id}}"><i class="far fa-trash-alt"></i></button>
+            </td>
+
+
+
+            <div class="modal fade" id="deleteModal{{user.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to delete {{user.username}}</h5>
+                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body"></div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal" href = "{% url 'users'%}">Close</button>
+                  <form action= {% url 'user_delete' user.id %} method = "POST">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Sure</button>
+                  </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+    {% endfor %}
+    </tbody>
+
+
+</table>
+{% else %}
+    <p>No customers are available.</p>
+{% endif %}
+{% endblock %}

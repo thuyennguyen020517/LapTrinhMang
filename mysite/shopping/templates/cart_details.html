@@ -1,0 +1,75 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+  
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="box-element">
+
+				<a  class="btn btn-outline-dark" href="{% url 'shopping' %}">&#x2190; Continue Shopping</a>
+
+				<br>
+				<br>
+			</div>
+
+			<br>
+			<div class="box-element">
+				<div class="cart-row">
+					{% comment %} <div style="flex:2"></div> {% endcomment %}
+					<div style="flex:2"><strong>Item</strong></div>
+					<div style="flex:1"><strong>Price</strong></div>
+					<div style="flex:1"><strong>Quantity</strong></div>
+					<div style="flex:1"><strong>Amount	</strong></div>
+					<div style="flex:2"><strong>Remove</strong></div>
+					
+				</div>
+				{% for item in cart_item %}
+				<div class="cart-row">
+					{% comment %} <div style="flex:2"><img class="row-image" src="{{item.laptop.brand}}"></div> {% endcomment %}
+					{% comment %} <div style="flex:2"><strong>{{item.id}}</strong></div> {% endcomment %}
+					<div style="flex:2"><p>{{item.laptop.name}}</p></div>
+                    <div style="flex:1"><p>{{item.laptop.price}}</p></div>
+                    <div style="flex:1"><p>{{item.quantity}}</p></div>
+					<div style="flex:1"><p>${{item.price}}</p></div>
+					<div style="flex:2">
+						{% comment %} <button type="button" class="btn btn-primary" onclick="window.location.href='{% url 'laptop_detail' laptop.id %}'"><i class="far fa-eye"></i></button>
+		
+						<button type="button" class="btn btn-success" onclick="window.location.href='{% url 'laptop_update' laptop.id %}'"><i class="fas fa-edit"></i></button>
+		
+						
+						 {% endcomment %}
+						 <button type="button" class="btn btn-danger"  data-mdb-toggle="modal" data-mdb-target="#deleteModal{{item.id}}"><i class="far fa-trash-alt"></i></button>
+						 <div class="modal fade" id="deleteModal{{item.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+							  <div class="modal-content">
+								<div class="modal-header">
+								  <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to delete {{item.laptop.name}}</h5>
+								  <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+								</div>
+								<div class="modal-body"></div>
+								<div class="modal-footer">
+								  <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal" href = "{% url 'shopping'%}">Close</button>
+								<form action= {% url 'delete_cart_item' item.id %} method = "POST">
+								  {% csrf_token %}
+								  <button type="submit" class="btn btn-danger">Sure</button>
+								</form>
+								</div>
+							  </div>
+							</div>
+						  </div>
+					</div>
+				</div>
+    
+				{% endfor %}
+				<h5>Total : {{cart.total}}</h5>
+			</div>
+		</div>
+	</div>
+{% endblock content %}
+{%block script%}
+
+    <script
+    type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"
+    ></script>
+{%endblock script%}

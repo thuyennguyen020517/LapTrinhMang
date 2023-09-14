@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if brand_list %}
+<table class="table table-bordered table-striped">      
+    <!-- columns name -->
+    <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Headquarters</th>
+          <th>Hotline</th>
+          <th>Email</th>
+          <th>
+             Actions
+          </th>
+        </tr>
+      </thead>
+      <tbody id="myTable">
+        {% for brand in brand_list %}
+        <tr>
+            <td>{{ brand.name }}</td>
+            <td>{{ brand.info }}</td>
+            <td>{{ brand.headquarters }}</td>
+            <td>{{ brand.phone }}</td>
+            <td>{{ brand.email }}</td>
+            <td>
+                <button type="button" class="btn btn-primary" onclick="window.location.href='{% url 'brand_detail' brand.id %}'"><i class="far fa-eye"></i></button>
+
+                <button type="button" class="btn btn-success" onclick="window.location.href='{% url 'brand_update' brand.id %}'"><i class="fas fa-edit"></i></button>
+
+                <button type="button" class="btn btn-danger"  data-mdb-toggle="modal" data-mdb-target="#deleteModal{{brand.id}}"><i class="far fa-trash-alt"></i></button>
+            </td>
+
+
+            <div class="modal fade" id="deleteModal{{brand.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Are you sure delete Brand {{brand.name}}</h5>
+                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body"></div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal" href = "{% url 'brand_list'%}">Cancel</button>
+                  <form action= {% url 'brand_delete' brand.id %} method = "POST">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Accept</button>
+                  </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+    {% endfor %}
+    </tbody>
+    <!-- Modal -->
+
+</table>
+{% else %}
+    <p>No brands are available.</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    span {
+        display: inline-block;
+        width: 25%;
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.1em;
+        font-weight: 300;
+        line-height: 1.7em;
+        color: #999;
+    }
+
+    .item {
+        display: inline-block;
+    }
+</style>
+<section style="background-color: #eee;">
+        <div class="row justify-content-center">
+            <hr>
+            <div class="col-lg-8">
+            <div class="card mb-4">
+                <div class="card-body">
+
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <p class="mb-0">Brand</p>
+                        </div>
+                        <div class="col-sm-9">
+                            <p class="text-muted mb-0">{{ brand.name }}</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <p class="mb-0">Description</p>
+                        </div>
+                        <div class="col-sm-9">
+                            <p class="text-muted mb-0">{{ brand.info }}</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <p class="mb-0">Headquarters</p>
+                        </div>
+                        <div class="col-sm-9">
+                            <p class="text-muted mb-0">{{ brand.headquarters }}</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <p class="mb-0">Hotline</p>
+                        </div>
+                        <div class="col-sm-9">
+                            <p class="text-muted mb-0">{{ brand.phone }}</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <p class="mb-0">Email</p>
+                        </div>
+                        <div class="col-sm-9">
+                            <p class="text-muted mb-0">{{ brand.email }}</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <a href="{% url 'brand_list' %}" class="btn btn-secondary addmar">Back</a>
+
+
+                </div>
+            </div>
+        </div>
+        </div>
+    
+    
+</section>
+{% endblock %}

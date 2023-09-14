@@ -1,0 +1,78 @@
+{% extends template %}
+
+{%block script%}
+    <!-- slick slider js -->
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <!-- icon -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script src="https://kit.fontawesome.com/682fa468d1.js" crossorigin="anonymous"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    {% load static %}
+    <script src="{% static "js/script.js" %}"></script>
+{%endblock script%}
+
+{%block css%}
+    {%load static%}
+    <link rel="stylesheet" href="{% static "css/style.css" %}">
+    <link rel="stylesheet" href="{% static "css/detail.css" %}">
+{%endblock css%}
+
+{% block content %}
+<div class="container row product">
+  <!-- product images -->
+  <div class="col-6 product-image">
+
+      <div class="slider slider-for">
+      {% for image in laptop.images.all %}
+        <img src= "{{ image.image.url }}" alt="{{ image.description }}">
+      {% endfor %}
+      </div>
+      <div class="slider slider-nav">
+      {% for image in laptop.images.all %}
+        <img src= "{{ image.image.url }}" alt="{{ image.description }}">
+      {% endfor %}
+      </div>
+  </div>
+  <!-- product information -->
+  <div class="col-6 product-infor">
+      <h3>Cấu hình đặc điểm </h3>
+      <div class="product__top">
+          <div class="flex-col">
+              <span class="text--grey">Tên hãng</span>
+              <h4>{{ laptop.brand }}</h4>
+          </div>
+          <div class="flex-col">
+              <span>Tên laptop</span>
+              <h4>{{ laptop.name }}</h4>
+          </div>
+          <div class="flex-col">
+              <span>Card đồ hoạ</span>
+              <h4>{{ laptop.graphic_card }}</h4>
+          </div>
+          <div class="flex-col">
+              <span>Ram</span>
+              <h4>{{ laptop.ram }} GB</h4>
+          </div>
+          <div class="flex-col">
+              <span>CPU</span>
+              <h4>{{ laptop.cpu }}</h4>
+          </div>
+          <div class="flex-col">
+              <span>Kiểu màn hình</span>
+              <h4>{{ laptop.screen_type }}</h4>
+          </div>
+      </div>
+
+      <div class="product__bottom row">
+          <h3 style="color:#fe3464">{{ laptop.price }} VND</h3>
+      </div>
+      {%if template == 'main.html'%}
+      <form action= {% url 'add_to_cart' laptop.id %} method = "POST" class='row'>
+        {% csrf_token %}
+        <button type="submit" class="btn btn-outline-secondary add-btn update-cart">Add to cart</button>
+        </form>
+    {%endif%}
+  </div>
+</div>
+
+{% endblock %}

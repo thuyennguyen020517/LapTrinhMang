@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Update User</h1>
+  <section style="background-color: #eee;">
+    <form method="post" class="row justify-content-center">
+      {% csrf_token %}
+      <div class="col-lg-8">
+        <div class="card mb-4">
+            <div class="card-body">
+              {% for field in form %}
+              <hr>
+                <div class="form-group row">
+                  <p class="col-sm-3 mb-0">{{ field.label }}</p>
+                  <div class="col-sm-9">
+                    <div class="text-muted mb-0">{{ field }}</div>
+                  </div>
+                  
+                  {% if field.help_text %}
+                    <small class="form-text text-muted">{{ field.help_text }}</small>
+                  {% endif %}
+                  {% for error in field.errors %}
+                    <div class="invalid-feedback d-block">{{ error }}</div>
+                  {% endfor %}
+                </div>
+              {% endfor %}
+              <div class="row justify-content-center mb-2">
+              <button class = "btn btn-success col-sm-2" type="submit">Save</button>
+                <div class="col-sm-1"></div>
+              <a href="{% url 'users' %}" class="btn btn-danger col-sm-2">Cancel</a>
+            </div>
+            </div>
+        </div>
+      </div>
+    </form>
+  </section>
+
+{% endblock %}

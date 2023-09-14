@@ -1,0 +1,30 @@
+{% extends 'main.html' %}
+
+{% block content %}
+{%load static%}
+	<div class="row">
+		{% for laptop in laptops %}
+		<div class="col-lg-4">
+			<img src="{{ laptop.images.0.image.url }}" alt="{{ laptop.images.0.description }}">
+			<img class="thumbnail" src="{% if laptop.images.all %}{{ laptop.images.all.0.image.url }}{% endif %}" alt="{{ laptop.name }}">
+			<div class="box-element product">
+				<h6><strong>{{ laptop.name }}</strong></h6>
+				<hr>
+
+				{% comment %} <a class="btn btn-outline-secondary add-btn update-cart" href ="{% url 'add_to_cart' laptop.id %}">Add to Cart</a> {% endcomment %}
+				
+				<form action= {% url 'add_to_cart' laptop.id %} method = "POST" style="display: inline-block">
+					{% csrf_token %}
+					<button type="submit" class="btn btn-outline-secondary add-btn update-cart">Add to cart</button>
+				</form>
+				<button type="button" class="btn btn-outline-success"  onclick="window.location.href='{% url 'laptop_detail' laptop.id %}'"><i class="far fa-eye"></i></button>
+				<h4 style="display: inline-block; float: right"><strong>${{ laptop.price }}</strong></h4>
+
+			</div>
+		</div>
+		{% endfor %}
+
+
+	</div>
+
+{% endblock content %}

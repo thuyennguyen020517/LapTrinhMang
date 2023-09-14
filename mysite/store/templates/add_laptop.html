@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+    
+{% block content %}
+{% load static %}
+    
+<link rel="stylesheet" href="{% static "css/addForm.css" %}">
+
+<h2>Add Laptop</h2>
+<section style="background-color: #eee;">
+  <form method="post" >
+    {% csrf_token %}
+  <div class= 'row justify-content-center'>
+  <div class="col-lg-8 card">
+    <div class="card-body">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" class="form-control" id="name" name="name">
+    </div>
+    <div class="form-group">
+      <label for="brand">Brand:</label>
+      <select class="form-control" id="brand" name="brand">
+        {% for brand in brands %}
+          <option value="{{ brand.id }}">{{ brand.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="graphic_card">Graphic Card:</label>
+      <input type="text" class="form-control" id="graphic_card" name="graphic_card">
+    </div>
+    <div class="form-group">
+      <label for="ram">Ram:</label>
+      <input type="text" class="form-control" id="ram" name="ram">
+    </div>
+    <div class="form-group">
+      <label for="cpu">CPU:</label>
+      <input type="text" class="form-control" id="cpu" name="cpu">
+    </div>
+    <div class="form-group">
+      <label for="screen_type">Screen Type:</label>
+      <input type="text" class="form-control" id="screen_type" name="screen_type">
+    </div>
+    <div class="form-group">
+      <label for="price">Price:</label>
+      <input type="text" class="form-control" id="price" name="price">
+    </div>
+    <div class="form-group row justify-content-center mb-2">
+      <button class="btn btn-success col-sm-2" type="submit">Add</button>
+      <div class="col-sm-1"></div>
+      <a class="btn btn-danger col-sm-2" href="{% url 'lapList' %}">Cancel</a>
+    </div>
+  </div>
+</div>
+</div>
+  </form>
+</section>
+  {% if errors %}
+    <ul>
+        {% for field_errors in errors.values %}
+            {% for error in field_errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        {% endfor %}
+    </ul>
+  {% endif %}
+{% endblock %}

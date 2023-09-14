@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+    
+<link rel="stylesheet" href="{% static "css/addForm.css" %}">
+
+<h2>Add image</h2>
+<section style="background-color: #eee;">
+  <form method="post" enctype="multipart/form-data" >
+    {% csrf_token %}
+    <div class= 'row justify-content-center'>
+      <div class="col-lg-8 card">
+      <div class="card-body">
+
+        <div class="form-group">
+          <label for="description">Description:</label>
+          <input type="text" class="form-control" id="description" name="description">
+        </div>
+
+        <div class="form-group">
+          <label for="laptop">Laptop:</label>
+          <select class="form-control" id="laptop" name="laptop">
+            {% for laptop in laptops %}
+              <option value="{{ laptop.id }}">{{ laptop.name }}</option>
+            {% endfor %}
+          </select>
+          
+        </div>
+
+        <div class="form-group">
+          <label for="image">CPU:</label>
+          <input type="file" class="form-control" id="image" name="image">
+        </div>
+
+        <div class="form-group row justify-content-center mb-2">
+          <button class="btn btn-success col-sm-2" type="submit">Tải lên</button>
+          <div class="col-sm-1"></div>
+          <a class="btn btn-danger col-sm-2" href="{% url 'view_images' %}">Cancel</a>
+        </div>
+
+
+      </div>
+      </div>
+    </div>
+  </form>
+</section>
+{% endblock %}

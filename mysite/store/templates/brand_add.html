@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+    
+<link rel="stylesheet" href="{% static "css/addForm.css" %}">
+  <h2>Add Brand</h2>
+<section style="background-color: #eee;">
+<div class= 'row justify-content-center'>
+  <div class="col-lg-8 card">
+    <div class="card-body">
+  <form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" class="form-control" id="name" name="name">
+    </div>
+    <div class="form-group">
+      <label for="info">Description:</label>
+      <input type="text" class="form-control" id="info" name="info">
+    </div>
+    <div class="form-group">
+      <label for="headquarters">Headquarters:</label>
+      <input type="text" class="form-control" id="headquarters" name="headquarters">
+    </div>
+    <div class="form-group">
+      <label for="phone">Hotline:</label>
+      <input type="text" class="form-control" id="phone" name="phone">
+    </div>
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="text" class="form-control" id="email" name="email">
+    </div>
+    <div class="form-group row justify-content-center mb-2">
+      <button class="btn btn-success col-sm-2" type="submit">Add</button>
+      <div class="col-sm-1"></div>
+      <a class="btn btn-danger col-sm-2" href="{% url 'brand_list' %}">Cancel</a>
+    </div>
+  </div>
+</div>
+</div>
+  </form>
+</section>
+  {% if errors %}
+    <ul>
+        {% for field_errors in errors.values %}
+            {% for error in field_errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        {% endfor %}
+    </ul>
+  {% endif %}
+{% endblock %}
